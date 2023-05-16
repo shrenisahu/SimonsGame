@@ -17,11 +17,23 @@ let sequence = [generateRandomNumber()]; // this array is used to memoise teh se
 
 let sequenceToGuess = [...sequence]; // this is a clone of sequence array.this array is used to guess the sequence
 
+// const flash = async (currPanel) => {
+//   currPanel.classList.add("active");
+//   await new Promise((resolve) => setTimeout(resolve, 1000)); // duration for whic the light will be on
+//   currPanel.classList.remove("active");
+//   await new Promise((resolve) => setTimeout(resolve,900)); // time gap between two ligh ons
+// };
+
 const flash = async (currPanel) => {
-  currPanel.classList.add("active");
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // duration for whic the light will be on
-  currPanel.classList.remove("active");
-  await new Promise((resolve) => setTimeout(resolve,900)); // time gap between two ligh ons
+  await new Promise((resolve) => {
+    currPanel.classList.add("active");
+    setTimeout(() => {
+      currPanel.className = currPanel.className.replace("active", "");
+      setTimeout(() => {
+        resolve();
+      }, 900);
+    }, 1000);
+  });
 };
 
 let canClick = false;
